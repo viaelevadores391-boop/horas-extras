@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Control de Horas Extras</title>
+
+<!-- ============ CONFIGURACIÓN: SOLO CAMBIA ESTAS DOS COSAS ============
+ 1) En el <script> de abajo: APP_URL = el enlace de tu plataforma (el que termina en /exec).
+ 2) Las 3 líneas que dicen TU-USUARIO: escribe la dirección real donde publicaste esta carpeta.
+      (Buscar y reemplazar:  https://TU-USUARIO.github.io/horas-extras/  →  tu dirección)
+======================================================================= -->
+
+<meta name="description" content="Registro, aprobación y pago de horas extra del personal.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Horas Extras">
+<meta property="og:title" content="Control de Horas Extras">
+<meta property="og:description" content="Registra tus horas extra, sigue su aprobación y pago.">
+<meta property="og:url" content="https://TU-USUARIO.github.io/horas-extras/">
+<meta property="og:image" content="https://TU-USUARIO.github.io/horas-extras/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://TU-USUARIO.github.io/horas-extras/og-image.png">
+
+<meta name="theme-color" content="#d92121">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Horas Extras">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<style>
+  html, body { margin:0; height:100%; background:#f5f3ee; font-family:system-ui, Arial, sans-serif; }
+  #app { position:fixed; inset:0; width:100%; height:100%; border:0; background:#f5f3ee; }
+  #ayuda { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:24px; text-align:center; color:#1b2430; z-index:-1; }
+  #ayuda img { width:96px; height:96px; }
+  #ayuda a { background:#d92121; color:#fff; padding:13px 22px; border-radius:10px; text-decoration:none; font-weight:600; }
+</style>
+</head>
+<body>
+<div id="ayuda">
+  <img src="icon-192.png" alt="Logo">
+  <h1 style="margin:0;font-size:1.3rem">Control de Horas Extras</h1>
+  <p id="msg" style="margin:0;max-width:340px;color:#66707d">Cargando la plataforma…</p>
+  <a id="abrir" href="#" style="display:none">Abrir la plataforma</a>
+</div>
+<iframe id="app" title="Control de Horas Extras" allow="clipboard-write; camera"></iframe>
+
+<script>
+  // ▼▼▼ PEGA AQUÍ EL ENLACE DE TU PLATAFORMA (termina en /exec) ▼▼▼
+  const APP_URL = 'PEGA_AQUI_EL_ENLACE_DE_LA_PLATAFORMA';
+  // ▲▲▲ ▲▲▲ ▲▲▲
+
+  const f = document.getElementById('app'), msg = document.getElementById('msg'), a = document.getElementById('abrir');
+  if (!/^https:\/\/script\.google\.com\//.test(APP_URL)) {
+    f.style.display = 'none'; document.getElementById('ayuda').style.zIndex = 1;
+    msg.textContent = 'Falta pegar el enlace de la plataforma en el archivo index.html.';
+  } else {
+    f.src = APP_URL; a.href = APP_URL;
+    // Si el navegador bloqueara el marco, se ofrece abrir la plataforma directamente.
+    setTimeout(() => { a.style.display = 'inline-block'; document.getElementById('ayuda').style.zIndex = -1; }, 12000);
+  }
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
